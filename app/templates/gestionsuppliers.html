@@ -1,0 +1,67 @@
+{% extends "./base.html"%}
+
+{% block title %} Gestion de suppliers {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>{{ message }}</strong> 
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        <h2>Supplier Management </h2>
+        <div class="card py-2">
+            <div class="card-body">
+                <form action="/registerSupplier/" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="txtname" name="txtname" class="form-control" placeholder="name"
+                            minlength="1" maxlength="50" required> <br>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtemail" name="txtemail" class="form-control" placeholder="email"
+                            minlength="6" maxlength="50" required><br>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="numphone" name="numphone" class="form-control" min="1" max="9" value="1"
+                            required><br>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white"> <i class="far fa-save"></i> Submit </button><br>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+        <h1>List of Suppliers</h1>
+        <div class="table-responsive py-2">
+            <table class="table table-striped" <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th colspan="2"> Options </th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for s in suppliers %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>{{s.name}}</td>
+                        <td>{{s.email}}</td>
+                        <td>{{s.phone}}</td>
+                        <td><a href="{% url 'editSupplier' s.name %}"  class="btn btn-info"><i class="fas fa-pencil-alt"></i> Edit</a></td>
+                        <td><a href="{% url 'deleteSupplier' s.id %}" class="btn btn-danger btnDelete"><i class="fas fa-trash-alt"></i> Delete</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "./base.html"%}
+
+{% block title %} Gestion de suppliers {% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <h2> Edit Supplier </h2>
+        <div class="card py-2">
+            <div class="card-body">
+                <form action="/editionSupplier/{{ supplier.name }}/" method="POST">{% csrf_token %}
+                    <div class="form-group">
+                        <input type="text" id="txtname" name="txtname" value="{{supplier.name}}" class="form-control"
+                            placeholder="name" minlength="1" maxlength="50" required> <br>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="txtemail" name="txtemail" value="{{supplier.email}}" class="form-control"
+                            placeholder="email" minlength="1" maxlength="50" required><br>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="numphone" name="numphone" value="{{supplier.phone}}"
+                            class="form-control" min="1" max="9" value="1" required><br>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block text-white"> <i class="far fa-save"></i> Submit </button><br>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock%}
